@@ -170,7 +170,7 @@ func restartService() error {
 			}
 			return errors.Wrap(errors.New(string(output)), "running systemctl restart "+serviceName)
 		}
-		return errors.Wrap(err, "running git pull")
+		return errors.Wrap(err, "running systemctl restart "+serviceName)
 	}
 
 	return nil
