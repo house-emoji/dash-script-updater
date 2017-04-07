@@ -45,6 +45,9 @@ func main() {
 // to update.
 func tryUpdate() (bool, error) {
 	lu, err := loadLastUpdateFile()
+	if err != nil {
+		return false, err
+	}
 
 	client := github.NewClient(nil)
 
