@@ -59,6 +59,7 @@ func tryUpdate() (bool, error) {
 
 	// Compare the most recent commit to our most recent update
 	if commits[0].GetSHA() != lu.SHA1 {
+		log.Println("stale SHA '"+lu.SHA1+"' does not equal '", commits[0].GetSHA()+"'")
 		// Update the repository
 		err = updateRepo()
 		if err != nil {
