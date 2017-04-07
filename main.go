@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -33,7 +32,7 @@ func main() {
 	for range time.Tick(runEvery) {
 		updated, err := tryUpdate()
 		if err != nil {
-			log.Println("update attempt failed", err)
+			log.Println("update attempt failed:", err)
 		} else if updated {
 			log.Println("updated repostory")
 		} else {
@@ -139,18 +138,9 @@ func saveLastUpdateFile(lu lastUpdate) error {
 // updateRepo runs a git pull on the repository in the working directory.
 func updateRepo() error {
 	cmd := exec.Command("git", "pull")
-	err := cmd.Run()
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		if cmd.Stdin != nil {
-			// Load the output of the failing command
-			output, ioErr := ioutil.ReadAll(cmd.Stdin)
-			if ioErr != nil {
-				errors.Wrap(ioErr, "loading command output after error '"+err.Error()+"'")
-				return ioErr
-			}
-			return errors.Wrap(errors.New(string(output)), "running git pull")
-		}
-		return errors.Wrap(err, "running git pull")
+		return errors.Wrap(errors.New(string(output)), "running git pull")
 	}
 
 	return nil
@@ -159,18 +149,9 @@ func updateRepo() error {
 // restartService restarts the Systemd service specified by serviceName.
 func restartService() error {
 	cmd := exec.Command("systemctl", "restart", serviceName)
-	err := cmd.Run()
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		if cmd.Stdin != nil {
-			// Load the output of the failing command
-			output, ioErr := ioutil.ReadAll(cmd.Stdin)
-			if ioErr != nil {
-				errors.Wrap(ioErr, "loading command output after error '"+err.Error()+"'")
-				return ioErr
-			}
-			return errors.Wrap(errors.New(string(output)), "running systemctl restart "+serviceName)
-		}
-		return errors.Wrap(err, "running systemctl restart "+serviceName)
+		return errors.Wrap(errors.New(string(output)), "running systemctl restart "+serviceName)
 	}
 
 	return nil
