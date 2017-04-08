@@ -3,14 +3,22 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 
 	"github.com/pkg/errors"
 )
 
-const repoDir = "/home/pi/dash-scripts"
+var repoDir string
 
 func main() {
+	if len(os.Args) < 2 {
+		log.Println("the first argument must be a path to the repository to update")
+		os.Exit(1)
+	}
+
+	repoDir = os.Args[1]
+
 	http.HandleFunc("/update", func(w http.ResponseWriter, r *http.Request) {
 		output, err := tryUpdate()
 		if err != nil {
