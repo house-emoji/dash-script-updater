@@ -1,50 +1,10 @@
 {
-    "memo": "658568f6b503fd4806b90df3fe14c6f3c8e35fdd7ad96e4e569d77b18e854c21",
+    "memo": "a5785f91e34c6888b78d77a1937bcd00ba051ca6e3927b0b9a119bcbf5a1a325",
     "projects": [
-        {
-            "name": "github.com/golang/protobuf",
-            "branch": "master",
-            "revision": "98fa357170587e470c5f27d3c3ea0947b71eb455",
-            "packages": [
-                "proto"
-            ]
-        },
-        {
-            "name": "github.com/google/go-github",
-            "branch": "master",
-            "revision": "12363ffc10018c93407ebf303040586d55957271",
-            "packages": [
-                "github"
-            ]
-        },
-        {
-            "name": "github.com/google/go-querystring",
-            "branch": "master",
-            "revision": "53e6ce116135b80d037921a7fdd5138cf32d7a8a",
-            "packages": [
-                "query"
-            ]
-        },
         {
             "name": "github.com/pkg/errors",
             "branch": "master",
             "revision": "17b591df37844cde689f4d5813e5cea0927d8dd2",
-            "packages": [
-                "."
-            ]
-        },
-        {
-            "name": "golang.org/x/net",
-            "branch": "master",
-            "revision": "d1e1b351919c6738fdeb9893d5c998b161464f0c",
-            "packages": [
-                "context"
-            ]
-        },
-        {
-            "name": "google.golang.org/appengine",
-            "branch": "master",
-            "revision": "1177123117f15f0e04f58d3623a02e38ece70baa",
             "packages": [
                 "."
             ]

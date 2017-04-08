@@ -8,6 +8,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+const repoDir = "/home/pi/dash-scripts"
+
 func main() {
 	http.HandleFunc("/update", func(w http.ResponseWriter, r *http.Request) {
 		output, err := tryUpdate()
@@ -47,6 +49,7 @@ func tryUpdate() (string, error) {
 // returns the console output of the command.
 func updateRepo() (string, error) {
 	cmd := exec.Command("git", "pull")
+	cmd.Dir = repoDir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return string(output), errors.Wrap(err, "running git pull")
@@ -59,6 +62,7 @@ func updateRepo() (string, error) {
 // output of the command.
 func postUpdate() (string, error) {
 	cmd := exec.Command("sh", "post-update.sh")
+	cmd.Dir = repoDir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return string(output), errors.Wrap(err, "running post-update.sh")
